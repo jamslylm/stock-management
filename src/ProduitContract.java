@@ -8,13 +8,13 @@ public interface ProduitContract {
 
     void Afficher_les_produit();
 
-    void Supprimer_un_produit();
+    void Supprimer_un_produit() throws IOException;
 
     void Afficher_la_liste_produit_OrdreCroissant();
 
     void Afficher_la_liste_produit_OrdreDecroissant();
 
-    void Restaurer_un_produit_supprime();
+    void Restaurer_un_produit_supprime() throws FileNotFoundException;
 
-    void Restaurer_tous_les_produits_supprime();
+    void Restaurer_tous_les_produits_supprime() throws FileNotFoundException;
 }

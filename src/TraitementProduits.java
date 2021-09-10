@@ -1,9 +1,5 @@
-import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class TraitementProduits implements ProduitContract {
     Produit produit = new Produit();
@@ -43,7 +39,7 @@ public class TraitementProduits implements ProduitContract {
         } while (produit1.getDescription().isEmpty());
 
         produit.enregistrer(produit1);
-        sauvegarderProduit(produit1);
+        sauvegarderProduit(produit1, "produits");
     }
 
     @Override
@@ -56,43 +52,49 @@ public class TraitementProduits implements ProduitContract {
         } while (code.isEmpty());
 
         int indexProd = rechercherProduit(code);
-        showProd(indexProd);
-
-        int choix;
-        scanner = new Scanner(System.in);
-
-        do {
-            System.out.println("--------------Modifier Produit--------------"
-                    + "\nModifier : "
-                    + "\n1- Categorie\n2- Nom\n3- Prix\n4- Quantite\n5- Description");
-            choix = scanner.nextInt();
-
+        if (indexProd == -1) {
+            System.out.println("Aucun Produit enregistrer avec ce code, re-essayez svp!");
+        } else {
+            showProd(indexProd);
+            int choix;
             scanner = new Scanner(System.in);
-            switch (choix) {
-                case 1:
-                    System.out.print("Entrer la categorie : ");
-                    produits.get(indexProd).setCategorie(scanner.nextLine());
-                    break;
-                case 2:
-                    System.out.print("Entrer la nom : ");
-                    produits.get(indexProd).setNom(scanner.nextLine());
-                    break;
-                case 3:
-                    System.out.print("Entrer le prix : ");
-                    produits.get(indexProd).setPrixUnitaire(scanner.nextInt());
-                    break;
-                case 4:
-                    System.out.print("Entrer la quantite : ");
-                    produits.get(indexProd).setQuantite(scanner.nextInt());
-                    break;
-                case 5:
-                    System.out.print("Entrer le Description : ");
-                    produits.get(indexProd).setDescription(scanner.nextLine());
-                    break;
-                default:
-                    System.out.println("Mauvaix choix!");
-            }
-        } while (choix <= 5);
+
+            do {
+                System.out.println("--------------Modifier Produit--------------"
+                        + "\nModifier : "
+                        + "\n1- Categorie\n2- Nom\n3- Prix\n4- Quantite\n5- Description\n0- Retourner dans le menu avant");
+                choix = scanner.nextInt();
+
+                scanner = new Scanner(System.in);
+                switch (choix) {
+                    case 1:
+                        System.out.print("Entrer la categorie : ");
+                        produits.get(indexProd).setCategorie(scanner.nextLine());
+                        break;
+                    case 2:
+                        System.out.print("Entrer la nom : ");
+                        produits.get(indexProd).setNom(scanner.nextLine());
+                        break;
+                    case 3:
+                        System.out.print("Entrer le prix : ");
+                        produits.get(indexProd).setPrixUnitaire(scanner.nextInt());
+                        break;
+                    case 4:
+                        System.out.print("Entrer la quantite : ");
+                        produits.get(indexProd).setQuantite(scanner.nextInt());
+                        break;
+                    case 5:
+                        System.out.print("Entrer le Description : ");
+                        produits.get(indexProd).setDescription(scanner.nextLine());
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Mauvaix choix!");
+                }
+            } while (choix != 0);
+        }
+
     }
 
     @Override
@@ -109,28 +111,143 @@ public class TraitementProduits implements ProduitContract {
     }
 
     @Override
-    public void Supprimer_un_produit() {
+    public void Supprimer_un_produit() throws IOException {
+        String code = "";
+        produits = produit.getListProduit();
+        scanner = new Scanner(System.in);
 
+        do {
+            System.out.print("Entrer le code du produit : ");
+            code = scanner.nextLine();
+        } while (code.isEmpty());
+
+        int indexPro = rechercherProduit(code);
+
+        if (indexPro == -1) {
+            System.out.println("Aucun produit enregistrer avec ce code, re-essayez svp!");
+        } else {
+            Produit produit1 = new Produit(produits.get(indexPro).getCode(), produits.get(indexPro).getCategorie(),
+                    produits.get(indexPro).getNom(), produits.get(indexPro).getPrixUnitaire(),
+                    produits.get(indexPro).getQuantite(), produits.get(indexPro).getDescription());
+            sauvegarderProduit(produit1, "Produits-supprimes");
+            produits.remove(indexPro);
+            System.out.println("Produit supprime avec succes!");
+        }
     }
 
     @Override
     public void Afficher_la_liste_produit_OrdreCroissant() {
+        produits = produit.getListProduit();
+        Collections.sort(produits);
+
+        System.out.println("---------------Les Produits -> (^A-Z)---------------");
+
+        if (produits.size() > 0) {
+            showProd(-1);
+        } else {
+            System.out.println("Aucun produit a afficher!");
+        }
 
     }
 
     @Override
     public void Afficher_la_liste_produit_OrdreDecroissant() {
+        produits = produit.getListProduit();
+        Collections.sort(produits, Collections.reverseOrder());
+
+        System.out.println("---------------Les Produits -> (^Z-A)---------------");
+
+        if (produits.size() > 0) {
+            showProd(-1);
+        } else {
+            System.out.println("Aucun produit a afficher!");
+        }
+    }
+
+    @Override
+    public void Restaurer_un_produit_supprime() throws FileNotFoundException {
+        String code = "";
+        scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Entrer le code du produit : ");
+            code = scanner.nextLine();
+        } while (code.isEmpty());
+
+        restore(code);
 
     }
 
     @Override
-    public void Restaurer_un_produit_supprime() {
-
+    public void Restaurer_tous_les_produits_supprime() throws FileNotFoundException {
+        restore("");
     }
 
-    @Override
-    public void Restaurer_tous_les_produits_supprime() {
+    public void restore(String code) throws FileNotFoundException {
+        Produit produit1 = new Produit();
+        File file = new File("Produits-supprimes.txt");
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line;
+        String[] abc = new String[0];
+        boolean found = false;
+        if (!code.isEmpty()) {
+            try {
+                while ((line = bufferedReader.readLine()) != null) {
+                    abc = line.split(";");
+                    if (abc[0].equals(code)) {
+                        found = true;
 
+                        produit1.setCode(abc[0]);
+                        produit1.setCategorie(abc[1]);
+                        produit1.setNom(abc[2]);
+                        produit1.setPrixUnitaire(Double.parseDouble(abc[3]));
+                        produit1.setQuantite(Integer.parseInt(abc[4]));
+                        produit1.setDescription(abc[5]);
+
+                        produit.enregistrer(produit1);
+
+                    } else {
+                        found = false;
+                    }
+
+                }
+
+                if (!found) {
+                    System.out.println("Aucune correspondance");
+                } else {
+                    System.out.println("produit restaure!");
+                }
+                fileReader.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                while ((line = bufferedReader.readLine()) != null) {
+                    abc = line.split(";");
+                    produit1.setCode(abc[0]);
+                    produit1.setCategorie(abc[1]);
+                    produit1.setNom(abc[2]);
+                    produit1.setPrixUnitaire(Double.parseDouble(abc[3]));
+                    produit1.setQuantite(Integer.parseInt(abc[4]));
+                    produit1.setDescription(abc[5]);
+
+                    produit.enregistrer(produit1);
+                }
+
+                fileReader.close();
+                System.out.println("produits restaures!");
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -156,10 +273,10 @@ public class TraitementProduits implements ProduitContract {
      * This method allows us to display a given product if we specify the index
      * or display all products if no parameter has given
      *
-     * @param index
+     * @param value
      */
-    public void showProd(int index) {
-        if (index == -1) {
+    public void showProd(int value) {
+        if (value == -1) {
             produits = produit.getListProduit();
             for (int i = 0; i < produits.size(); i++) {
                 System.out.println("Code                   : " + produits.get(i).getCode()
@@ -171,12 +288,12 @@ public class TraitementProduits implements ProduitContract {
                         + "\n------------------------------------");
             }
         } else {
-            System.out.println("Code                   : " + produits.get(index).getCode()
-                    + "\nCategorie              : " + produits.get(index).getCategorie()
-                    + "\nNom                    : " + produits.get(index).getNom()
-                    + "\nPrix                   : " + produits.get(index).getPrixUnitaire()
-                    + "\nQuantite               : " + produits.get(index).getQuantite()
-                    + "\nDescription            : " + produits.get(index).getDescription()
+            System.out.println("Code                   : " + produits.get(value).getCode()
+                    + "\nCategorie              : " + produits.get(value).getCategorie()
+                    + "\nNom                    : " + produits.get(value).getNom()
+                    + "\nPrix                   : " + produits.get(value).getPrixUnitaire()
+                    + "\nQuantite               : " + produits.get(value).getQuantite()
+                    + "\nDescription            : " + produits.get(value).getDescription()
                     + "\n------------------------------------");
         }
     }
@@ -188,8 +305,8 @@ public class TraitementProduits implements ProduitContract {
      * @param produit1
      * @throws IOException
      */
-    public void sauvegarderProduit(Produit produit1) throws IOException {
-        FileOutputStream file = new FileOutputStream("produits.txt", true);
+    public void sauvegarderProduit(Produit produit1, String filename) throws IOException {
+        FileOutputStream file = new FileOutputStream(filename + ".txt", true);
         BufferedOutputStream buffer = new BufferedOutputStream(file);
 
         String line = produit1.getCode() + ";" + produit1.getCategorie() + ";" + produit1.getNom() + ";"
@@ -221,7 +338,8 @@ public class TraitementProduits implements ProduitContract {
                     + "\n5.- Afficher la liste des produits en ordre croissant"
                     + "\n6.- Afficher la liste des produits en ordre decroissant"
                     + "\n7.- Restaurer un produit supprime par son code"
-                    + "\n8.- Restaurer tous les produits supprimes");
+                    + "\n8.- Restaurer tous les produits supprimes"
+                    + "\n0.- Retourner dans le menu avant");
 
             choix = scanner.nextInt();
             switch (choix) {
@@ -249,9 +367,12 @@ public class TraitementProduits implements ProduitContract {
                 case 8:
                     Restaurer_tous_les_produits_supprime();
                     break;
+                case 0:
+                    break;
                 default:
                     System.out.println("Mauvais choix !");
+                    break;
             }
-        } while (choix <= 8);
+        } while (choix != 0);
     }
 }

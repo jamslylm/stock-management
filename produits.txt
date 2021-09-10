@@ -1,8 +1,6 @@
-prod-0001;laptop;Hp Pavillion;250.0;100;un laptop;
-prod-0001;laptop;Hp Pavillion;250.0;100;un laptop hp ;
-prod-0002;laptop;Dell XPS 15;790.0;150;un laptop dell;
-prod-0001;laptop;Hp pavillion;350.0;100;un laptop hp;
-prod-0002;laptop;Dell XPS 15;790.0;150;un laptop;
-prod-0001;laptop;hp Pavillion;450.0;1500;un laptop;
-prod-0001;laptop;Hp Pavillion;250.0;100;un laptop hp;
-prod-0001;laptop;Hp Pavillion;450.0;100;un laptop;
+prod-0001;laptop;Hp Pavillion;450.0;100;laptop hp;
+prod-0003;laptop;Acer swift 5;790.0;150;laptop acer;
+prod-0002;Printer;Hp Printer;350.0;100;Printer hp;
+prod-0001;laptop;Hp pavillion;340.0;100;laptop hp;
+prod-0002;laptop;Acer swift 5;570.0;150;laptop acer;
+prod-0003;printer;Hp Printer;590.0;150;printer hp;

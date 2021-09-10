@@ -1,0 +1,2 @@
+prod-0003;printer;Hp Printer;590.0;150;printer hp;
+prod-0002;laptop;Acer swift 5;570.0;150;laptop acer;

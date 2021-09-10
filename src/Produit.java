@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Produit {
+public class Produit implements Comparable {
     private String code;
     private String categorie;
     private String Nom;
@@ -51,34 +51,67 @@ public class Produit {
     }
 
     public void setCode(String code) {
-        this.code = code;
+        if ((code != null) && (!code.isEmpty())) {
+            this.code = code;
+        }
     }
 
     public void setCategorie(String categorie) {
-        this.categorie = categorie;
+        if ((categorie != null) && (!categorie.isEmpty())) {
+            this.categorie = categorie;
+        }
     }
 
     public void setNom(String nom) {
-        Nom = nom;
+        if ((nom != null) && (!nom.isEmpty())) {
+            this.Nom = nom;
+        }
     }
 
     public void setPrixUnitaire(double prixUnitaire) {
-        PrixUnitaire = prixUnitaire;
+        if (!(prixUnitaire <= 0)) {
+            this.PrixUnitaire = prixUnitaire;
+        }
     }
 
     public void setQuantite(int quantite) {
-        Quantite = quantite;
+        if (!(quantite <= 0)) {
+            this.Quantite = quantite;
+        }
     }
 
     public void setDescription(String description) {
-        Description = description;
+        if ((description != null) && (!description.isEmpty())) {
+            this.Description = description;
+        }
     }
 
     public void setListProduit(ArrayList<Produit> listProduit) {
-        this.listProduit = listProduit;
+        if (listProduit != null) {
+            this.listProduit = listProduit;
+        }
     }
 
     public void enregistrer(Produit produit) {
         listProduit.add(produit);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        String nom = ((Produit) o).getNom();
+        return this.getCode().compareTo(nom);
+    }
+
+    @Override
+    public String toString() {
+        return "Produit{" +
+                "code='" + code + '\'' +
+                ", categorie='" + categorie + '\'' +
+                ", Nom='" + Nom + '\'' +
+                ", PrixUnitaire=" + PrixUnitaire +
+                ", Quantite=" + Quantite +
+                ", Description='" + Description + '\'' +
+                ", listProduit=" + listProduit +
+                '}';
     }
 }
