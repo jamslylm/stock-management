@@ -60,7 +60,7 @@ public class TraitementProduits implements ProduitContract {
             scanner = new Scanner(System.in);
 
             do {
-                System.out.println("--------------Modifier Produit--------------"
+                System.out.println("---------------Modifier Produit---------------"
                         + "\nModifier : "
                         + "\n1- Categorie\n2- Nom\n3- Prix\n4- Quantite\n5- Description\n0- Retourner dans le menu avant");
                 choix = scanner.nextInt();
@@ -101,7 +101,7 @@ public class TraitementProduits implements ProduitContract {
     public void Afficher_les_produit() {
         produits = produit.getListProduit();
 
-        System.out.println("-------------Les Produits-------------");
+        System.out.println("---------------Les Produits---------------");
 
         if (produits.size() > 0) {
             showProd(-1);
@@ -155,7 +155,7 @@ public class TraitementProduits implements ProduitContract {
         produits = produit.getListProduit();
         Collections.sort(produits, Collections.reverseOrder());
 
-        System.out.println("---------------Les Produits -> (^Z-A)---------------");
+        System.out.println("---------------Les Produits -> (^Z-A---------------");
 
         if (produits.size() > 0) {
             showProd(-1);
@@ -285,7 +285,7 @@ public class TraitementProduits implements ProduitContract {
                         + "\nPrix                   : " + produits.get(i).getPrixUnitaire()
                         + "\nQuantite               : " + produits.get(i).getQuantite()
                         + "\nDescription            : " + produits.get(i).getDescription()
-                        + "\n------------------------------------");
+                        + "\n---------------------------------------------");
             }
         } else {
             System.out.println("Code                   : " + produits.get(value).getCode()
@@ -294,7 +294,7 @@ public class TraitementProduits implements ProduitContract {
                     + "\nPrix                   : " + produits.get(value).getPrixUnitaire()
                     + "\nQuantite               : " + produits.get(value).getQuantite()
                     + "\nDescription            : " + produits.get(value).getDescription()
-                    + "\n------------------------------------");
+                    + "\n---------------------------------------------");
         }
     }
 
@@ -329,7 +329,7 @@ public class TraitementProduits implements ProduitContract {
         scanner = new Scanner(System.in);
 
         do {
-            System.out.println("______ Menu Produits_______"
+            System.out.println("---------------Menu Produits---------------"
                     + "\nFaites un choix"
                     + "\n1.- Enregistrer un Produits"
                     + "\n2.- Modifier un produit par son code"

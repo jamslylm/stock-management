@@ -12,7 +12,7 @@ public class TraitementClients implements ClientContract {
         Client client1 = new Client();
         scanner = new Scanner(System.in);
 
-        System.out.println("--------------------Enregistrement Client--------------------");
+        System.out.println("---------------Enregistrement Client---------------");
 
         do {
             System.out.print("Entrer le code client : ");
@@ -44,7 +44,15 @@ public class TraitementClients implements ClientContract {
 
     @Override
     public void Afficher_La_ListeClient() {
-        showClient(-1);
+        clients = client.getListClient();
+
+        System.out.println("---------------Les Clients---------------");
+
+        if (clients.size() > 0) {
+            showClient(-1);
+        } else {
+            System.out.println("Aucun client a afficher!");
+        }
     }
 
     @Override
@@ -63,6 +71,7 @@ public class TraitementClients implements ClientContract {
         if (indexCl == -1) {
             System.out.println("Aucune correspondance!");
         } else {
+            showClient(indexCl);
             do {
                 System.out.print("Entrer la nouvelle adresse : ");
                 adresse = scanner.nextLine();
@@ -109,7 +118,7 @@ public class TraitementClients implements ClientContract {
                         + "\nSexe               : " + clients.get(i).getSex()
                         + "\nAdresse            : " + clients.get(i).getAdresse()
                         + "\nTelephone          : " + clients.get(i).getTel()
-                        + "\n------------------------------------");
+                        + "\n---------------------------------------------");
             }
         } else {
             System.out.println("Code               : " + clients.get(value).getCode()
@@ -118,7 +127,7 @@ public class TraitementClients implements ClientContract {
                     + "\nSexe               : " + clients.get(value).getSex()
                     + "\nAdresse            : " + clients.get(value).getAdresse()
                     + "\nTelephone          : " + clients.get(value).getTel()
-                    + "\n------------------------------------");
+                    + "\n---------------------------------------------");
         }
     }
 

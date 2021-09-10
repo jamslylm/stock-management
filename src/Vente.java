@@ -90,6 +90,10 @@ public class Vente {
         this.listVente = listVente;
     }
 
+    public void enregistrer(Vente vente) {
+        listVente.add(vente);
+    }
+
     @Override
     public String toString() {
         return "Vente{" +
