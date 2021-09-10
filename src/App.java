@@ -33,7 +33,9 @@ public class App {
                     System.out.println("Au revoir 👋!");
                     break;
                 default:
-                    System.out.println("Mauvais choix");
+                    System.out.println("---------------Message---------------" +
+                            "\nMauvais choix!" +
+                            "\n---------------------------------------------");
                     break;
             }
 

@@ -8,7 +8,7 @@ public class Client {
     private String Adresse;
     private int Tel;
 
-    ArrayList<Client> listClient = new ArrayList<>();
+    static ArrayList<Client> listClient = new ArrayList<>();
     ArrayList<Produit> listProduit = new ArrayList<>();
 
     public Client() {
@@ -56,39 +56,27 @@ public class Client {
     }
 
     public void setCode(String code) {
-        if ((code != null) && (!code.isEmpty())) {
-            Code = code;
-        }
+        Code = code;
     }
 
     public void setNom(String nom) {
-        if ((nom != null) && (!nom.isEmpty())) {
-            Nom = nom;
-        }
+        Nom = nom;
     }
 
     public void setPrenom(String prenom) {
-        if ((prenom != null) && (!prenom.isEmpty())) {
-            Prenom = prenom;
-        }
+        Prenom = prenom;
     }
 
     public void setSex(String sex) {
-        if ((sex != null) && (!sex.isEmpty())) {
-            Sex = sex;
-        }
+        Sex = sex;
     }
 
     public void setAdresse(String adresse) {
-        if ((adresse != null) && (!adresse.isEmpty())) {
-            Adresse = adresse;
-        }
+        Adresse = adresse;
     }
 
     public void setTel(int tel) {
-        if (!(tel <= 0)) {
-            Tel = tel;
-        }
+        Tel = tel;
     }
 
     public void setListClient(ArrayList<Client> listClient) {

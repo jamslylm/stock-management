@@ -5,7 +5,7 @@ public class TraitementProduits implements ProduitContract {
     Produit produit = new Produit();
     Scanner scanner;
 
-    ArrayList<Produit> produits = new ArrayList<>();
+    static ArrayList<Produit> produits = new ArrayList<>();
 
     @Override
     public void Enregistrer() throws IOException {
@@ -53,7 +53,9 @@ public class TraitementProduits implements ProduitContract {
 
         int indexProd = rechercherProduit(code);
         if (indexProd == -1) {
-            System.out.println("Aucun Produit enregistrer avec ce code, re-essayez svp!");
+            System.out.println("---------------Message---------------" +
+                    "\nAucune correspondance, veuillez re-essayez svp!" +
+                    "\n---------------------------------------------");
         } else {
             showProd(indexProd);
             int choix;
@@ -106,7 +108,9 @@ public class TraitementProduits implements ProduitContract {
         if (produits.size() > 0) {
             showProd(-1);
         } else {
-            System.out.println("Aucun produit a afficher!");
+            System.out.println("---------------Message---------------" +
+                    "\nAucun produit a afficher, veuillez re-essayez svp!" +
+                    "\n---------------------------------------------");
         }
     }
 
@@ -124,8 +128,9 @@ public class TraitementProduits implements ProduitContract {
         int indexPro = rechercherProduit(code);
 
         if (indexPro == -1) {
-            System.out.println("Aucun produit enregistrer avec ce code, re-essayez svp!");
-        } else {
+            System.out.println("---------------Message---------------" +
+                    "\nAucune correspondance, veuillez re-essayez svp!" +
+                    "\n---------------------------------------------");        } else {
             Produit produit1 = new Produit(produits.get(indexPro).getCode(), produits.get(indexPro).getCategorie(),
                     produits.get(indexPro).getNom(), produits.get(indexPro).getPrixUnitaire(),
                     produits.get(indexPro).getQuantite(), produits.get(indexPro).getDescription());
@@ -145,7 +150,9 @@ public class TraitementProduits implements ProduitContract {
         if (produits.size() > 0) {
             showProd(-1);
         } else {
-            System.out.println("Aucun produit a afficher!");
+            System.out.println("---------------Message---------------" +
+                    "\nAucun produit a afficher, veuillez re-essayez svp!" +
+                    "\n---------------------------------------------");
         }
 
     }
@@ -160,7 +167,9 @@ public class TraitementProduits implements ProduitContract {
         if (produits.size() > 0) {
             showProd(-1);
         } else {
-            System.out.println("Aucun produit a afficher!");
+            System.out.println("---------------Message---------------" +
+                    "\nAucun produit a afficher, veuillez re-essayez svp!" +
+                    "\n---------------------------------------------");
         }
     }
 
@@ -214,9 +223,13 @@ public class TraitementProduits implements ProduitContract {
                 }
 
                 if (!found) {
-                    System.out.println("Aucune correspondance");
+                    System.out.println("---------------Message---------------" +
+                            "\nAucune correspondance, veuillez re-essayez svp!" +
+                            "\n---------------------------------------------");
                 } else {
-                    System.out.println("produit restaure!");
+                    System.out.println("---------------Message---------------" +
+                            "\nProduit restaure!" +
+                            "\n---------------------------------------------");
                 }
                 fileReader.close();
 
@@ -240,7 +253,9 @@ public class TraitementProduits implements ProduitContract {
                 }
 
                 fileReader.close();
-                System.out.println("produits restaures!");
+                System.out.println("---------------Message---------------" +
+                        "\nProduit restaure!" +
+                        "\n---------------------------------------------");
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -265,6 +280,8 @@ public class TraitementProduits implements ProduitContract {
                     return i;
                 }
             }
+        } else {
+            return -2;
         }
         return -1;
     }
@@ -370,7 +387,9 @@ public class TraitementProduits implements ProduitContract {
                 case 0:
                     break;
                 default:
-                    System.out.println("Mauvais choix !");
+                    System.out.println("---------------Message---------------" +
+                            "\nMauvais choix!" +
+                            "\n---------------------------------------------");
                     break;
             }
         } while (choix != 0);

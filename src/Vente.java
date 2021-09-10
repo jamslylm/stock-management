@@ -8,7 +8,7 @@ public class Vente {
     private String DateVente;
     private String etat;
 
-    ArrayList<Vente> listVente = new ArrayList<>();
+    static ArrayList<Vente> listVente = new ArrayList<>();
 
     public Vente() {
     }
@@ -51,39 +51,27 @@ public class Vente {
     }
 
     public void setCode(String code) {
-        if ((code != null) && (!code.isEmpty())) {
-            this.code = code;
-        }
+        this.code = code;
     }
 
     public void setCodeProduit(String codeProduit) {
-        if ((codeProduit != null) && (!codeProduit.isEmpty())) {
-            this.codeProduit = codeProduit;
-        }
+        this.codeProduit = codeProduit;
     }
 
     public void setCodeClient(String codeClient) {
-        if ((codeClient != null) && (!codeClient.isEmpty())) {
-            this.codeClient = codeClient;
-        }
+        this.codeClient = codeClient;
     }
 
     public void setQuantiteAchete(int quantiteAchete) {
-        if (!(quantiteAchete <= 0)) {
-            this.quantiteAchete = quantiteAchete;
-        }
+        this.quantiteAchete = quantiteAchete;
     }
 
     public void setDateVente(String dateVente) {
-        if ((dateVente != null) && (!dateVente.isEmpty())) {
-            DateVente = dateVente;
-        }
+        DateVente = dateVente;
     }
 
     public void setEtat(String etat) {
-        if ((etat != null) && (!etat.isEmpty())) {
-            this.etat = etat;
-        }
+        this.etat = etat;
     }
 
     public void setListVente(ArrayList<Vente> listVente) {

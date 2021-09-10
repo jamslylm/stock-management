@@ -1,6 +1,1 @@
-prod-0001;laptop;Hp Pavillion;450.0;100;laptop hp;
-prod-0003;laptop;Acer swift 5;790.0;150;laptop acer;
-prod-0002;Printer;Hp Printer;350.0;100;Printer hp;
-prod-0001;laptop;Hp pavillion;340.0;100;laptop hp;
-prod-0002;laptop;Acer swift 5;570.0;150;laptop acer;
-prod-0003;printer;Hp Printer;590.0;150;printer hp;
+prod-0001;laptop;Hp Pavillion;450.0;140;laptop hp;

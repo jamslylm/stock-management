@@ -8,7 +8,7 @@ public class Produit implements Comparable {
     private int Quantite;
     private String Description;
 
-    ArrayList<Produit> listProduit = new ArrayList<>();
+    static ArrayList<Produit> listProduit = new ArrayList<>();
 
     public Produit() {
     }
@@ -51,45 +51,31 @@ public class Produit implements Comparable {
     }
 
     public void setCode(String code) {
-        if ((code != null) && (!code.isEmpty())) {
-            this.code = code;
-        }
+        this.code = code;
     }
 
     public void setCategorie(String categorie) {
-        if ((categorie != null) && (!categorie.isEmpty())) {
-            this.categorie = categorie;
-        }
+        this.categorie = categorie;
     }
 
     public void setNom(String nom) {
-        if ((nom != null) && (!nom.isEmpty())) {
-            this.Nom = nom;
-        }
+        this.Nom = nom;
     }
 
     public void setPrixUnitaire(double prixUnitaire) {
-        if (!(prixUnitaire <= 0)) {
-            this.PrixUnitaire = prixUnitaire;
-        }
+        this.PrixUnitaire = prixUnitaire;
     }
 
     public void setQuantite(int quantite) {
-        if (!(quantite <= 0)) {
-            this.Quantite = quantite;
-        }
+        this.Quantite = quantite;
     }
 
     public void setDescription(String description) {
-        if ((description != null) && (!description.isEmpty())) {
-            this.Description = description;
-        }
+        this.Description = description;
     }
 
     public void setListProduit(ArrayList<Produit> listProduit) {
-        if (listProduit != null) {
-            this.listProduit = listProduit;
-        }
+        this.listProduit = listProduit;
     }
 
     public void enregistrer(Produit produit) {

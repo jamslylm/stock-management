@@ -1,5 +1,7 @@
+import java.io.IOException;
+
 public interface VenteContract {
-    void Enregistrer();
+    void Enregistrer() throws IOException;
 
     void Afficher_la_liste_ventes();
 

@@ -1,3 +1,6 @@
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,10 +8,10 @@ public class TraitementClients implements ClientContract {
     Client client = new Client();
     Scanner scanner;
 
-    ArrayList<Client> clients = new ArrayList<>();
+    static ArrayList<Client> clients = new ArrayList<>();
 
     @Override
-    public void Enregistrer() {
+    public void Enregistrer() throws IOException {
         Client client1 = new Client();
         scanner = new Scanner(System.in);
 
@@ -40,6 +43,7 @@ public class TraitementClients implements ClientContract {
         } while (client1.getTel() <= 0);
 
         client.enregistrer(client1);
+        sauvegarderClient(client1, "Clients");
     }
 
     @Override
@@ -51,7 +55,9 @@ public class TraitementClients implements ClientContract {
         if (clients.size() > 0) {
             showClient(-1);
         } else {
-            System.out.println("Aucun client a afficher!");
+            System.out.println("---------------Message---------------" +
+                    "\nAucun client a afficher!" +
+                    "\n---------------------------------------------");
         }
     }
 
@@ -69,7 +75,10 @@ public class TraitementClients implements ClientContract {
         String adresse;
 
         if (indexCl == -1) {
-            System.out.println("Aucune correspondance!");
+            System.out.println("---------------Message---------------" +
+                    "\nAucune correspondance, veuillez re-essayez svp!" +
+                    "\n---------------------------------------------");
+            ;
         } else {
             showClient(indexCl);
             do {
@@ -86,13 +95,43 @@ public class TraitementClients implements ClientContract {
     public void Afficher_produits_Achetes() {
         scanner = new Scanner(System.in);
         String code = "";
+        Vente vente = new Vente();
+        TraitementVentes tv = new TraitementVentes();
+        TraitementProduits tp = new TraitementProduits();
+        ArrayList<Vente> ventes = new ArrayList<>();
 
         do {
             System.out.print("Entrer le code du client : ");
             code = scanner.nextLine();
         } while (code.isEmpty());
 
-        int indexCl = rechercherClient(code);
+        int sClient = rechercherClient(code);
+        if (sClient == -1) {
+            System.out.println("---------------Message---------------" +
+                    "\nAucune correspondance, veuillez re-essayez svp!" +
+                    "\n---------------------------------------------");
+        }
+
+        if (sClient == -2) {
+            System.out.println("---------------Message---------------" +
+                    "\nAucun client enregistre, veuillez re-essayez svp!" +
+                    "\n---------------------------------------------");
+        }
+
+        ventes = vente.getListVente();
+
+        if (ventes.size() > 0) {
+            System.out.println("---------------Produits achetes---------------");
+            for (int i = 0; i < ventes.size(); i++) {
+                if (ventes.get(i).getCodeClient().equalsIgnoreCase(code)) {
+                    tp.showProd(i);
+                }
+            }
+        } else {
+            System.out.println("---------------Message---------------" +
+                    "\nAucun produit a afficher!" +
+                    "\n---------------------------------------------");
+        }
     }
 
     public int rechercherClient(String codeCLient) {
@@ -104,6 +143,8 @@ public class TraitementClients implements ClientContract {
                     return i;
                 }
             }
+        } else {
+            return -2;
         }
         return -1;
     }
@@ -131,7 +172,21 @@ public class TraitementClients implements ClientContract {
         }
     }
 
-    public void menuClient() {
+    public void sauvegarderClient(Client client1, String filename) throws IOException {
+        FileOutputStream file = new FileOutputStream(filename + ".txt", true);
+        BufferedOutputStream buffer = new BufferedOutputStream(file);
+
+        String line = client1.getCode() + ";" + client1.getNom() + ";" + client1.getPrenom() + ";"
+                + client1.getSex() + ";" + client1.getAdresse() + ";" + client1.getTel() + ";\n";
+
+        byte[] bytes = line.getBytes();
+        buffer.write(bytes);
+
+        buffer.flush();
+        buffer.close();
+    }
+
+    public void menuClient() throws IOException {
         int choix = 0;
         scanner = new Scanner(System.in);
 
@@ -161,7 +216,9 @@ public class TraitementClients implements ClientContract {
                 case 0:
                     break;
                 default:
-                    System.out.println("Mauvais choix");
+                    System.out.println("---------------Message---------------" +
+                            "\nMauvais choix!" +
+                            "\n---------------------------------------------");
                     break;
             }
         } while (choix != 0);

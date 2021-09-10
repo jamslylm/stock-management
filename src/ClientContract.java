@@ -1,5 +1,7 @@
+import java.io.IOException;
+
 public interface ClientContract {
-    void Enregistrer();
+    void Enregistrer() throws IOException;
 
     void Afficher_La_ListeClient();
 
